@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Metin Paylaşım Sitesi</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #fafafa;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .container {
+            max-width: 600px;
+            width: 100%;
+            background: #fff;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+        textarea {
+            width: 100%;
+            height: 200px;
+            padding: 10px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            margin-bottom: 10px;
+            border-radius: 5px;
+        }
+        button {
+            display: inline-block;
+            width: 100%;
+            padding: 10px;
+            background: #28a745;
+            color: #fff;
+            border: none;
+            font-size: 18px;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+        button:hover {
+            background: #218838;
+        }
+        .share-link {
+            margin-top: 20px;
+            padding: 10px;
+            background-color: #f8f9fa;
+            border: 1px solid #ccc;
+            word-wrap: break-word;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Metin Paylaşım Sitesi</h1>
+    <textarea id="textArea" placeholder="Metninizi buraya yazın..."></textarea>
+    <button type="button" onclick="generateLink()">Paylaş</button>
+    <div id="shareLink" class="share-link" style="display: none;"></div>
+</div>
+
+<script>
+    function generateLink() {
+        const text = document.getElementById('textArea').value;
+        const encodedText = encodeURIComponent(text);
+        const link = `${window.location.origin}${window.location.pathname}?text=${encodedText}`;
+        document.getElementById('shareLink').innerText = link;
+        document.getElementById('shareLink').style.display = 'block';
+    }
+
+    function loadTextFromURL() {
+        const urlParams = new URLSearchParams(window.location.search);
+        const text = urlParams.get('text');
+        if (text) {
+            document.getElementById('textArea').value = decodeURIComponent(text);
+        }
+    }
+
+    window.onload = loadTextFromURL;
+</script>
+
+</body>
+</html>
